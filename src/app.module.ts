@@ -1,8 +1,6 @@
 import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { kafkaConfig } from './config/kafka-config';
-import { ClientsModule } from '@nestjs/microservices';
 import { ConfigModule } from '@nestjs/config';
 import { DcacheModule } from '@qqss-erp/dmex-rcache-npm';
 import { CacheModule } from '@nestjs/cache-manager';
@@ -15,16 +13,11 @@ import {
   JwtAuthGuard,
 } from '@qqss-erp/dmex-auth-npm';
 import { APP_GUARD } from '@nestjs/core';
+import { CacheInteractionModule } from './cache_interaction/cache_interaction.module';
 
 @Module({
   imports: [
     ConfigModule,
-    ClientsModule.register([
-      {
-        name: 'DMEX_MSG_SERVICE',
-        ...kafkaConfig,
-      },
-    ]),
     DcacheModule,
     HealthModule,
     AuthModule,
@@ -37,6 +30,7 @@ import { APP_GUARD } from '@nestjs/core';
       isGlobal: true,
       auth_pass: process.env.AUTH_PASS,
     }),
+    CacheInteractionModule,
   ],
   controllers: [AppController],
   providers: [
