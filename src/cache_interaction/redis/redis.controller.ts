@@ -4,7 +4,6 @@ import { ClientKafka } from '@nestjs/microservices';
 import { KAFKA_TOPIC } from '../../config/app-constants';
 import { ClearCacheRequest } from '../clear_cache_request';
 import { ResponseEntity } from '@qqss-erp/dmex-rcache-npm';
-import { Login, Public } from '@qqss-erp/dmex-auth-npm';
 
 @Controller('cache')
 export class RedisController {
@@ -16,8 +15,6 @@ export class RedisController {
     @Inject('DMEX_MSG_SERVICE') private kafkaClient: ClientKafka,
   ) {}
 
-  @Public()
-  @Login()
   @Post('/clear')
   async clearCache(@Body() body: ClearCacheRequest, @Req() req) {
     try {
