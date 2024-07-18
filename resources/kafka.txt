@@ -1,0 +1,6 @@
+docker compose -f kafka-docker.yaml up -d
+$ ./kafka-console-consumer --bootstrap-server localhost:9092 --topic dmex --from-beginning
+$ ./kafka-console-producer --bootstrap-server localhost:9092 --topic dmex
+
+$ ./kafka-console-producer --topic dmex --bootstrap-server localhost:9092 --property parse.headers=true --property headers.key.separator=: --property headers.separator=% --property headers.delimiter=\;
+>subject:CACHE%action:CLEAN;{"keyName":"name"}
